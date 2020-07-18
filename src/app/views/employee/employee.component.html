@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <h1>Prueba técnica MasGlobal</h1>
+
+    <div class="body-content mt-5 mb-3">
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-row align-items-center">
+                <div class="col-5">
+                    <label class="sr-only" for="inlineFormInput">Name</label>
+                    <input type="text" [(ngModel)]="name" name="Name" class="form-control mb-2" id="inlineFormInput"
+                        placeholder="Name">
+                </div>
+                <div class="col-3">
+                    <button *ngIf="!isLoading" type="submit" class="btn btn-primary mb-2">Search</button>
+                    <button *ngIf="isLoading" class="btn btn-primary mb-2" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="isLoading" class="text-center mt-5">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="!isLoading && employees.length == 0" class="alert alert-danger" role="alert">
+        No se encontró información!
+    </div>
+    <table *ngIf="!isLoading && employees.length > 0" class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Contract Type Name</th>
+                <th>RoleId</th>
+                <th>Role Name</th>
+                <th>Role Description</th>
+                <th>Hourly Salary</th>
+                <th>Monthly Salary</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of employees">
+                <td class="text-rigth">{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.contractTypeName }}</td>
+                <td>{{ item.roleId }}</td>
+                <td>{{ item.roleName }}</td>
+                <td>{{ item.roleDescription }}</td>
+                <td class="text-right">{{ item.hourlySalary | currency }}</td>
+                <td class="text-right">{{ item.monthlySalary | currency }}</td>
+                <td class="text-right">{{ item.salary | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
